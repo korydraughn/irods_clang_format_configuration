@@ -137,7 +137,7 @@ messages = [
 
 # If you receive this message and you have unstaged changes, you may need to run the following to
 # allow changes to those files as well.
-#   $ git clang-format -f [OPTIONS ...]
+#   git clang-format -f [OPTIONS ...]
 if output not in messages:
     print('Run git clang-format [-f], then commit.\n')
     exit(1)
