@@ -116,17 +116,17 @@ import subprocess
 
 # Git Clang-Format will read properties from your git configuration.  You can set default properties
 # in your git configuration or pass them to the command directly.  This script assumes you'll set options
-# in git configuration.  Git Clang-Format configuration options include:
-#   clangFormat.binary
-#   clangFormat.style
-#   clangFormat.extensions
+# in your git configuration.  Git Clang-Format configuration options include:
+#   clangformat.binary
+#   clangformat.style
+#   clangformat.extensions
 #
 # You'd set them by running the following commands:
-#   git config --global clangFormat.binary clang-format
-#   git config --global clangFormat.style file
-#   git config --global clangFormat.extensions 'h,c,hpp,cpp'
+#   git config --global clangformat.binary clang-format
+#   git config --global clangformat.style file
+#   git config --global clangformat.extensions 'h,c,hpp,cpp'
 #
-# Or you can pass them directly like so (if you do this, you'll need to pass them everywhere):
+# You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
 #   output = subprocess.check_output(['git', 'clang-format', '-v', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff'])
 output = subprocess.check_output(['git', 'clang-format', '--diff'])
 
