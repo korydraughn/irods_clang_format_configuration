@@ -1,0 +1,1 @@
+# irods_clang_format_configuration
