@@ -88,10 +88,6 @@ UseTab:          Never
 ...
 ```
 
-### Notes
-- If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
-- Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
-
 ### Adding a Style Configuration to your Project
 To add the style configuration to one or more projects, do the following:
 1. Create a file called `.clang-format`.
@@ -148,6 +144,10 @@ exit(0)
 ```
 To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a message stating that you need to run
 `git clang-format`.&nbsp; Do just that and you should be good to go.&nbsp; The tool will only format the modified code.
+
+### Notes
+- If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
+- Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
 
 ### Official Clang-Format v3.8 Documentation
 - [Home](http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormat.html)
