@@ -92,6 +92,12 @@ UseTab:          Never
 - If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
 - Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
 
+### Adding a Style Configuration to your Project
+To add the style configuration to one or more projects, do the following:
+1. Create a file called `.clang-format`.
+2. Copy and paste the options above into the file.
+3. Place the file in a parent directory of the source tree.&nbsp; Clang-Format will check the current directory and then parent directories until it finds a style configuration file.
+
 ### Git Pre-Commit Hook
 Do the following:
 ```
@@ -122,7 +128,8 @@ from subprocess import check_output
 #   git config --global clangformat.extensions 'h,c,hpp,cpp'
 #
 # You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
-#   output = check_output(['git', 'clang-format', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff'])
+#   cmd = ['git', 'clang-format', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff']
+#   output = check_output(cmd)
 output = check_output(['git', 'clang-format', '--diff'])
 
 messages = [
@@ -132,15 +139,15 @@ messages = [
 
 # If you receive this message and you have unstaged changes, you may need to run the following to
 # allow changes to those files as well.
-#   git clang-format -f [OPTIONS ...]
+#   git clang-format -f
 if output not in messages:
     print('Run git clang-format [-f], then commit.\n')
     exit(1)
 
 exit(0)
 ```
-To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a message stating that you need to run `git clang-format`.
-To format, type `git clang-format` and you should be good to go.&nbsp; The tool will only format the modified code.
+To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a message stating that you need to run
+`git clang-format`.&nbsp; Do just that and you should be good to go.&nbsp; The tool will only format the modified code.
 
 ### Official Clang-Format v3.8 Documentation
 - [Home](http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormat.html)
