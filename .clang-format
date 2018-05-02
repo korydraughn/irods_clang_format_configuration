@@ -1,9 +1,5 @@
 # Clang-Format v3.8
 # - http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormat.html
-#
-# Group Discussion Results:
-# - Open curly brace should follow control statements.
-# - Set column limit to 120.
 ---
 Language:        Cpp
 # BasedOnStyle:  Mozilla
@@ -28,7 +24,6 @@ BinPackArguments: false
 BinPackParameters: false
 BraceWrapping:   
   AfterClass:      true
-  #AfterControlStatement: true
   AfterControlStatement: false
   AfterEnum:       true
   AfterFunction:   true
@@ -42,7 +37,6 @@ BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
-#ColumnLimit:     80
 ColumnLimit:     120
 CommentPragmas:  '^ IWYU pragma:'
 ConstructorInitializerAllOnOneLineOrOnePerLine: false

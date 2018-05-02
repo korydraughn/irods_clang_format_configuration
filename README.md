@@ -25,7 +25,6 @@ BinPackArguments: false
 BinPackParameters: false
 BraceWrapping:
   AfterClass:      true
-  #AfterControlStatement: true
   AfterControlStatement: false
   AfterEnum:       true
   AfterFunction:   true
@@ -39,7 +38,6 @@ BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
-#ColumnLimit:     80
 ColumnLimit:     120
 CommentPragmas:  '^ IWYU pragma:'
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -89,12 +87,9 @@ TabWidth:        8
 UseTab:          Never
 ...
 ```
-### Updates
-- Curly braces follow control statements instead of a line-break.
-- Column limit changed from 80 to 120 characters.
 
 ### Notes
-- If you change the configuration, make sure to undo any formatting previously done.  Not doing so could result in unexpected results.
+- If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
 - Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
 
 ### Git Pre-Commit Hook
@@ -107,12 +102,12 @@ $ chmod +x pre-commit
 ```
 Open `pre-commit` in your favorite editor and type the following.
 This example uses python 2, but you can use any language you want as long as the same operations can be accomplished.
-This script does not automatically format code.  Instead, it checks to see if the new code has been processed by clang-format.
+This script does not automatically format code.&nbsp; Instead, it checks to see if the new code has been processed by clang-format.
 ```python
 #! /usr/bin/python
 
 from __future__ import print_function
-import subprocess
+from subprocess import check_output
 
 # Git Clang-Format will read properties from your git configuration.  You can set default properties
 # in your git configuration or pass them to the command directly.  This script assumes you'll set options
@@ -127,8 +122,8 @@ import subprocess
 #   git config --global clangformat.extensions 'h,c,hpp,cpp'
 #
 # You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
-#   output = subprocess.check_output(['git', 'clang-format', '-v', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff'])
-output = subprocess.check_output(['git', 'clang-format', '--diff'])
+#   output = check_output(['git', 'clang-format', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff'])
+output = check_output(['git', 'clang-format', '--diff'])
 
 messages = [
     'no modified files to format\n',
@@ -144,6 +139,8 @@ if output not in messages:
 
 exit(0)
 ```
+To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a message stating that you need to run `git clang-format`.
+To format, type `git clang-format` and you should be good to go.&nbsp; The tool will only format the modified code.
 
 ### Official Clang-Format v3.8 Documentation
 - [Home](http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormat.html)
