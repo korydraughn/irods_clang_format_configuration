@@ -8,7 +8,7 @@ AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
-AlignEscapedNewlinesLeft: false
+AlignEscapedNewlines: Right
 AlignOperands:   true
 AlignTrailingComments: true
 AllowAllParametersOfDeclarationOnNextLine: false
@@ -23,23 +23,33 @@ AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: true
 BinPackArguments: false
 BinPackParameters: false
-BraceWrapping:
+BraceWrapping:   
   AfterClass:      true
   AfterControlStatement: false
   AfterEnum:       true
   AfterFunction:   true
   AfterNamespace:  true
+  AfterObjCDeclaration: false
   AfterStruct:     true
   AfterUnion:      true
+  AfterExternBlock: true
   BeforeCatch:     true
   BeforeElse:      true
   IndentBraces:    false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
+BreakBeforeInheritanceComma: true
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
+BreakConstructorInitializers: BeforeComma
+BreakAfterJavaFieldAnnotations: false
+BreakStringLiterals: true
 ColumnLimit:     120
 CommentPragmas:  '^ IWYU pragma:'
+CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
@@ -47,22 +57,35 @@ Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
-ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
-IncludeCategories:
+FixNamespaceComments: true
+ForEachMacros:   
+  - foreach
+  - Q_FOREACH
+  - BOOST_FOREACH
+IncludeBlocks:   Preserve
+IncludeCategories: 
   - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
     Priority:        2
-  - Regex:           '^(<|"(gtest|isl|json)/)'
+  - Regex:           '^(<|"(gtest|gmock|isl|json)/)'
     Priority:        3
   - Regex:           '.*'
     Priority:        1
+IncludeIsMainRegex: '(Test)?$'
 IndentCaseLabels: true
+IndentPPDirectives: AfterHash
 IndentWidth:     4
 IndentWrappedFunctionNames: false
+JavaScriptQuotes: Leave
+JavaScriptWrapImports: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 MacroBlockBegin: ''
 MacroBlockEnd:   ''
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
+ObjCBlockIndentWidth: 2
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: false
+PenaltyBreakAssignment: 2
 PenaltyBreakBeforeFirstCallParameter: 19
 PenaltyBreakComment: 300
 PenaltyBreakFirstLessLess: 120
@@ -70,9 +93,15 @@ PenaltyBreakString: 1000
 PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 200
 PointerAlignment: Left
+RawStringFormats: 
+  - Delimiter:       pb
+    Language:        TextProto
+    BasedOnStyle:    google
 ReflowComments:  true
 SortIncludes:    true
+SortUsingDeclarations: true
 SpaceAfterCStyleCast: true
+SpaceAfterTemplateKeyword: false
 SpaceBeforeAssignmentOperators: true
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false
@@ -86,6 +115,7 @@ Standard:        Cpp11
 TabWidth:        8
 UseTab:          Never
 ...
+
 ```
 
 ### Adding a Style Configuration to your Project
@@ -121,10 +151,10 @@ from subprocess import check_output
 # You'd set them by running the following commands:
 #   git config --global clangformat.binary clang-format
 #   git config --global clangformat.style file
-#   git config --global clangformat.extensions 'h,c,hpp,cpp'
+#   git config --global clangformat.extensions 'h,c,hpp,tpp,cpp'
 #
 # You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
-#   cmd = ['git', 'clang-format', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff']
+#   cmd = ['git', 'clang-format', '--extensions', 'h,c,hpp,tpp,cpp', '--style', 'file', '--diff']
 #   output = check_output(cmd)
 output = check_output(['git', 'clang-format', '--diff'])
 
@@ -149,6 +179,6 @@ To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a 
 - If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
 - Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
 
-### Official Clang-Format v3.8 Documentation
-- [Home](http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormat.html)
-- [Style Options](http://releases.llvm.org/3.8.0/tools/clang/docs/ClangFormatStyleOptions.html)
+### Official Clang-Format v6.0 Documentation
+- [Home](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormat.html)
+- [Style Options](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormatStyleOptions.html)
