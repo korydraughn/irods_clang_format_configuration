@@ -179,6 +179,18 @@ To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a 
 - If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
 - Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
 
+### Formatting Files Outside Of Git
+**WARNING!  THESE COMMANDS TOUCH MULTIPLE FILES!**
+The following commands assume you are at the root of the project and using the BaSH shell.
+These commands are not meant to be run together (run only one).
+Use the pre-commit hook after using these going forward.
+
+- Formats ALL files including headers:
+  `clang-format -i $(find . \( -name '*.[hc]' -o -name '*.[hct]pp' \) \! -path '*doxygen*' | sort)`
+
+- Formats ALL files except headers:
+  `clang-format -i $(find . \( -name '*.c' -o -name '*.[ct]pp' \) \! -path '*doxygen*' | sort)`
+
 ### Official Clang-Format v6.0 Documentation
 - [Home](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormat.html)
 - [Style Options](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormatStyleOptions.html)
