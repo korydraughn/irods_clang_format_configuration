@@ -1,196 +1,49 @@
 # irods_clang_format_configuration
-### .clang-format
-```
----
-Language:        Cpp
-# BasedOnStyle:  Mozilla
-AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
-AlignEscapedNewlines: Right
-AlignOperands:   true
-AlignTrailingComments: true
-AllowAllParametersOfDeclarationOnNextLine: false
-AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: true
-BinPackArguments: false
-BinPackParameters: false
-BraceWrapping:   
-  AfterClass:      true
-  AfterControlStatement: false
-  AfterEnum:       true
-  AfterFunction:   true
-  AfterNamespace:  true
-  AfterObjCDeclaration: false
-  AfterStruct:     true
-  AfterUnion:      true
-  AfterExternBlock: true
-  BeforeCatch:     true
-  BeforeElse:      true
-  IndentBraces:    false
-  SplitEmptyFunction: true
-  SplitEmptyRecord: true
-  SplitEmptyNamespace: true
-BreakBeforeBinaryOperators: None
-BreakBeforeBraces: Custom
-BreakBeforeInheritanceComma: true
-BreakBeforeTernaryOperators: true
-BreakConstructorInitializersBeforeComma: true
-BreakConstructorInitializers: BeforeComma
-BreakAfterJavaFieldAnnotations: false
-BreakStringLiterals: true
-ColumnLimit:     120
-CommentPragmas:  '^ IWYU pragma:'
-CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: false
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
-Cpp11BracedListStyle: true
-DerivePointerAlignment: false
-DisableFormat:   false
-ExperimentalAutoDetectBinPacking: false
-FixNamespaceComments: true
-ForEachMacros:   
-  - foreach
-  - Q_FOREACH
-  - BOOST_FOREACH
-IncludeBlocks:   Preserve
-IncludeCategories: 
-  - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
-    Priority:        2
-  - Regex:           '^(<|"(gtest|gmock|isl|json)/)'
-    Priority:        3
-  - Regex:           '.*'
-    Priority:        1
-IncludeIsMainRegex: '(Test)?$'
-IndentCaseLabels: true
-IndentPPDirectives: AfterHash
-IndentWidth:     4
-IndentWrappedFunctionNames: false
-JavaScriptQuotes: Leave
-JavaScriptWrapImports: true
-KeepEmptyLinesAtTheStartOfBlocks: false
-MacroBlockBegin: ''
-MacroBlockEnd:   ''
-MaxEmptyLinesToKeep: 1
-NamespaceIndentation: All
-ObjCBlockIndentWidth: 2
-ObjCSpaceAfterProperty: true
-ObjCSpaceBeforeProtocolList: false
-PenaltyBreakAssignment: 2
-PenaltyBreakBeforeFirstCallParameter: 19
-PenaltyBreakComment: 300
-PenaltyBreakFirstLessLess: 120
-PenaltyBreakString: 1000
-PenaltyExcessCharacter: 1000000
-PenaltyReturnTypeOnItsOwnLine: 200
-PointerAlignment: Left
-RawStringFormats: 
-  - Delimiter:       pb
-    Language:        TextProto
-    BasedOnStyle:    google
-ReflowComments:  true
-SortIncludes:    false
-SortUsingDeclarations: true
-SpaceAfterCStyleCast: true
-SpaceAfterTemplateKeyword: true
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeParens: ControlStatements
-SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 1
-SpacesInAngles:  false
-SpacesInContainerLiterals: true
-SpacesInCStyleCastParentheses: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-Standard:        Cpp11
-TabWidth:        8
-UseTab:          Never
-...
 
+This repository contains the .clang-format configuration file used by several iRODS C/C++ projects.
+
+## Projects using this Style Configuration
+- irods_capability_indexing
+- irods_capability_publishing
+- irods_capability_storage_tiering
+- irods_client_cli
+- irods_client_rest_cpp
+- irods_microservice_plugins_curl
+- irods_netcdf
+- irods_resource_plugin_s3
+- irods_rule_engine_plugin_audit_amqp
+- irods_rule_engine_plugin_hard_links
+- irods_rule_engine_plugin_logical_quotas
+- irods_rule_engine_plugin_metadata_guard
+- irods_rule_engine_plugin_python
+
+## Adding a Style Configuration to your Project
+To add the style configuration file to your project, copy the .clang-format file into the root directory or a parent directory of your project. Clang-Format will check the current directory and then the parent directories until it finds a style configuration file.
+
+## Adding a Git Pre-Commit Hook
+Git can run clang-format against your changes before being committed. This guarantees that the formatting of your code always matches the requirements of the project. A pre-commit hook is provided by this repository.
+
+Before you can use the pre-commit hook, you'll need to make sure your git configuration defines the correct properties. To do that, run the following commands:
+```bash
+git config --global clangformat.binary clang-format
+git config --global clangformat.style file
+git config --global clangformat.extensions 'h,c,hpp,cpp'
 ```
 
-### Adding a Style Configuration to your Project
-To add the style configuration to one or more projects, do the following:
-1. Create a file called `.clang-format`.
-2. Copy and paste the options above into the file.
-3. Place the file in a parent directory of the source tree.&nbsp; Clang-Format will check the current directory and then parent directories until it finds a style configuration file.
-
-### Git Pre-Commit Hook
-Do the following:
+To enable the pre-commit hook, do the following:
+```bash
+cd root/of/your/repo
+cd .git/hooks
+cp /path/to/irods_clang_format_configuration/pre-commit.template pre-commit
+chmod +x pre-commit
 ```
-$ cd root/of/your/repo
-$ cd .git/hooks
-$ touch pre-commit
-$ chmod +x pre-commit
-```
-Open `pre-commit` in your favorite editor and type the following.
-This example uses python 2, but you can use any language you want as long as the same operations can be accomplished.
-This script does not automatically format code.&nbsp; Instead, it checks to see if the new code has been processed by clang-format.
-```python
-#! /usr/bin/python
 
-from __future__ import print_function
-from subprocess import check_output
+To test, modify a C/C++ file and commit the changes. You should receive a message stating that you need to format your changes. Instructions for doing so will be provided. Once done, commit your changes and you're all set. The tool will only format the lines modified.
 
-# Git Clang-Format will read properties from your git configuration.  You can set default properties
-# in your git configuration or pass them to the command directly.  This script assumes you'll set options
-# in your git configuration.  Git Clang-Format configuration options include:
-#   clangformat.binary
-#   clangformat.style
-#   clangformat.extensions
-#
-# You'd set them by running the following commands:
-#   git config --global clangformat.binary clang-format
-#   git config --global clangformat.style file
-#   git config --global clangformat.extensions 'h,c,hpp,tpp,cpp'
-#
-# You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
-#   cmd = ['git', 'clang-format', '--extensions', 'h,c,hpp,tpp,cpp', '--style', 'file', '--diff']
-#   output = check_output(cmd)
-output = check_output(['git', 'clang-format', '--diff'])
+## Notes
+- If you change the configuration, make sure to revert any formatting previously done. Not doing so could result in unexpected results.
+- Use `git clang-format <branch-or-sha-to-start-from>` instead of `clang-format` so that only the modified files will be formatted.
 
-messages = [
-    'no modified files to format\n',
-    'clang-format did not modify any files\n'
-]
-
-# If you receive this message and you have unstaged changes, you may need to run the following to
-# allow changes to those files as well.
-#   git clang-format -f
-if output not in messages:
-    print('Run git clang-format [-f], then commit.\n')
-    exit(1)
-
-exit(0)
-```
-To test, modify a C/C++ file and commit the changes.&nbsp; You should receive a message stating that you need to run
-`git clang-format`.&nbsp; Do just that and you should be good to go.&nbsp; The tool will only format the modified code.
-
-### Notes
-- If you change the configuration, make sure to undo any formatting previously done.&nbsp; Not doing so could result in unexpected results.
-- Use `git clang-format` instead of `clang-format` so that only the modified files will be formatted.
-
-### Formatting Files Outside Of Git
-**WARNING!  THESE COMMANDS TOUCH MULTIPLE FILES!**
-The following commands assume you are at the root of the project and using the BaSH shell.
-These commands are not meant to be run together (run only one).
-Use the pre-commit hook after using these going forward.
-
-- Formats ALL files including headers:
-  `clang-format -i $(find . \( -name '*.[hc]' -o -name '*.[hct]pp' \) \! -path '*doxygen*' | sort)`
-
-- Formats ALL files except headers:
-  `clang-format -i $(find . \( -name '*.c' -o -name '*.[ct]pp' \) \! -path '*doxygen*' | sort)`
-
-### Official Clang-Format v6.0 Documentation
-- [Home](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormat.html)
-- [Style Options](http://releases.llvm.org/6.0.1/tools/clang/docs/ClangFormatStyleOptions.html)
+## Official Clang-Format 13 Documentation
+- [Home](http://releases.llvm.org/13.0.0/tools/clang/docs/ClangFormat.html)
+- [Style Options](http://releases.llvm.org/13.0.0/tools/clang/docs/ClangFormatStyleOptions.html)

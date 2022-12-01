@@ -1,0 +1,37 @@
+#! /usr/bin/python3
+
+import subprocess
+
+# Git Clang-Format will read properties from your git configuration. You can set default properties
+# in your git configuration or pass them to the command directly. This script assumes you'll set options
+# in your git configuration. Git Clang-Format configuration options include:
+#
+#   clangformat.binary
+#   clangformat.style
+#   clangformat.extensions
+#
+# You'd set them by running the following commands:
+#
+#   git config --global clangformat.binary clang-format
+#   git config --global clangformat.style file
+#   git config --global clangformat.extensions 'h,c,hpp,cpp'
+#
+# You can pass them directly by using the line below (if you do this, you'll need to pass them everywhere):
+#
+#   cmd = ['git', 'clang-format', '--extensions', 'h,c,hpp,cpp', '--style', 'file', '--diff']
+#   output = check_output(cmd)
+#
+output = subprocess.check_output(['git', 'clang-format', '--diff'])
+
+messages = [
+    b'no modified files to format\n',
+    b'clang-format did not modify any files\n'
+]
+
+# Print message explaining how to run "git clang-format" when formatting issues are reported.
+if output not in messages:
+    print('Your code changes need to be formatted. Run the following command to format them:\n')
+    print('    git clang-format <branch-or-commit-to-start-from>\n')
+    exit(1)
+
+exit(0)
